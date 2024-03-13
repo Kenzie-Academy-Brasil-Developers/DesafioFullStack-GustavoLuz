@@ -3,6 +3,7 @@ import { LoginDto } from './dto/login.dto';
 import { ClientsService } from '../clients/clients.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcryptjs';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Injectable()
 export class AuthService {
@@ -15,8 +16,16 @@ export class AuthService {
     if (!await compare(loginDto.password, client.password)) {
       throw new UnauthorizedException("Invalid email or password")
     }
+    
     return {
-      token: this.jwtService.sign({ email: loginDto.email }, { subject: client.id, secret:process.env.SECRET_KEY })
+      accessToken: this.jwtService.sign({ email: loginDto.email }, { subject: client.id, secret:process.env.SECRET_KEY }),
+      client: {
+        id: client.id,
+        email: client.email,
+        name: client.name,
+        telephone: client.telephone,
+        registeredAt:client.registeredAt
+      }
     }
   }
 }
