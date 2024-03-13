@@ -25,6 +25,12 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+To start using the API, first create a .env file and use the .env.example variables to manage your database.
+
+
+## Documentation
+The Swagger documentation for the API is at http://localhost:3000/api
+
 
 ## Installation
 
@@ -43,6 +49,21 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Run Migrations
+To run migrations in PrismaOrm
+
+```bash
+# Defining initial migrations
+$ npx prisma migrate save --name initial
+
+
+# Apllying migrations
+$ npx prisma migrate up
+
+# development
+$ npx prisma migrate dev
 ```
 
 ## Test
